@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+body {
+  
+  font-family: 'Nunito', sans-serif;
+}
+
+:root{
+  --primary-color-dashboard: #8E97FD;
+  --secondary-color-dashboard: rgba(142, 151, 253, 69%);
+  --btn-slider-color-dashboard: #1F265E;
+  --text-slider-dashboard : #1F265E;
+  --text-content-dashboard-dashboard : #000000;
+  
+}
+
+.admin-dashboard {
+  min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.bg-slider{
+  background-color: var(--primary-color-dashboard);
+  color: var(--text-slider);
+}
+
+.slider-active{
+  background-color: var(--btn-slider-color-dashboard);
+  border-radius: 5px;
+}
+
+.btn-slider{
+  background-color: var(--secondary-color-dashboard);
+  box-shadow: 10px 10px 10px rgba(31, 38, 94, 0.1), -10px -10px 10px rgba(31, 38, 94, 0.1);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-slider:hover{
+  background-color: var(--btn-slider-color-dashboard);
+}
+
+.sidebar-link {
+  transition: all 0.3s;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-link.active {
+  background-color: #0d6efd;
+}
+
+/* Dashboard Content */
+.btn-add{
+  background-color: var(--primary-color-dashboard);
+  box-shadow: 10px 10px 10px rgba(31, 38, 94, 0.1), -10px -10px 10px rgba(31, 38, 94, 0.1);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-bell{
+  background-color: var(--btn-slider-color-dashboard);
+  box-shadow: 10px 10px 10px rgba(31, 38, 94, 0.1), -10px -10px 10px rgba(31, 38, 94, 0.1);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-bell:hover{
+  background-color: var(--primary-color-dashboard);
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+
+/* Header Styling */
+
+.bg-header{
+  background-color: var(--secondary-color-dashboard);
+  color: var(--text-slider);
+}
+
+/* Table Styling Enhancement */
+
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.film-table img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Form Styling Enhancement */
+.form-addfilms {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.form-addfilms table {
+  width: 100%;
+}
+
+.form-addfilms input, .form-addfilms textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.form-addfilms label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.form-addfilms button {
+  margin-top: 15px;
+}
+
+/* Card Styling */
+.stat-card {
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .sidebar {
+    width: 70px !important;
+  }
+  
+  .sidebar .sidebar-title,
+  .sidebar .nav-text {
+    display: none;
+  }
+  
+  .main-content {
+    margin-left: 70px;
+  }
+}
+
+
+/* CSS FE USERS */
+/* src/styles/LoginPage.css */
+.login-page {
+  font-family: "Segoe UI", sans-serif;
+}
+
+.login-left {
+  width: 100%;
+  background-image: url("./img/login/bg-login.png"); /* Ganti dengan path asli */
+  background-size: cover;
+  background-position: center;
+}
+
+.login-right {
+  width: 20%;
+  background-color: #fff;
+}
+
+/* Input fields */
+.login-form .form-control {
+  background-color: #dcddff;
+  border: 1px solid #dcddff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form .form-control:focus {
+  border-color: #8e97fd;
+  box-shadow: 0 0 0 0.15rem rgba(142, 151, 253, 0.3);
+}
+
+.login-form .btn-primary {
+  background-color: #8e97fd;
+  border: none;
+}
+
+.login-form .btn-primary:hover {
+  background-color: #8fa8ff;
+}
+
+.login-form .form-label {
+  font-weight: 500;
+  color: #6c63ff;
+}
+
+.login-form hr {
+  border: none;
+  border-top: 2px solid #8e97fd;
+  width: 150%;
+  margin: 2rem -25% 2rem -25%;
+  opacity: 0.9;
+}
