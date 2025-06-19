@@ -19,9 +19,14 @@ const FilmsPage = () => {
 
           {/* Film Hits */}
           <Row className="box-populer-films p-3 m-1 mt-5">
-            <h1>
-              <b>Film Hits</b>
-            </h1>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h1>
+                <b>Film Hits</b>
+              </h1>
+              <a href="/films/populer" className="btn btn-lihat-semua btn-sm">
+                Lihat Semua
+              </a>
+            </div>
             <PopularComponentFilm />
           </Row>
 

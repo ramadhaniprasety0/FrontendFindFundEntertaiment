@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Dropdown   } from "react-bootstrap";
+import { Button, Dropdown, Card } from "react-bootstrap";
 
 const DetailFilmComponent = ({ film, actors }) => {
+  const [isWatched, setIsWatched] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [rating, setRating] = useState(0);
+
+  const toggleWatched = () => {
+    setIsWatched(!isWatched);
+  };
+
+  // Fungsi untuk mengubah status suka
+  const toggleLike = () => {
+    setIsLiked(!isLiked);
+  };
+
+  // Fungsi untuk mengubah rating bintang
+  const handleRating = (star) => {
+    setRating(star);
+  };
+
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -46,7 +64,8 @@ const DetailFilmComponent = ({ film, actors }) => {
         {/* Info film di tengah */}
         <div className="col">
           <div className="info-section flex-grow-1">
-            <h3>{film.title}</h3>
+            <h3 className="fw-bold">{film.title}</h3>
+
             <p className="text-muted">
               {film.release_year}
               <br />
@@ -81,7 +100,17 @@ const DetailFilmComponent = ({ film, actors }) => {
             {/* Rating */}
             <div>
               <div className="label mt-2">Bintang</div>
-              <div className="rating">★ ★ ☆ ☆ ☆</div>
+              <div className="rating" style={{ marginTop: "-10px" }}>
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    onClick={() => handleRating(star)}
+                    style={{ cursor: "pointer", color: "#342e58" }}
+                  >
+                    {star <= rating ? "★" : "☆"}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Ulasan */}
@@ -106,26 +135,38 @@ const DetailFilmComponent = ({ film, actors }) => {
       </div>
 
       {/* Pemeran */}
-        <div className="cast-section mt-5">
-          <h5 className="mb-3">Pemeran</h5>
-          <div className="row pb-3">
-            {actors.map((actor, index) => (
-              <div key={index} className="col-md-2">
-                <div className="card text-center h-100">
-                  <img
-                    src={`${import.meta.env.VITE_API_URL_IMAGE}/${actor.image}`}
-                    alt={actor.name}
-                    className="card-img-top"
-                  />
-                  <div className="card-body">
-                    <p className="fw-bold mb-1">{truncateText(actor.name, 15)}</p>
-                    <p className="text-muted small">{actor.pemeran}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+
+        <h6
+        style={{
+          marginTop: "100px",
+          borderBottom: "1px solid black",
+          width: "600px",
+        }}
+        className="fs-5 fw-semibold"
+      >
+        Pemeran
+      </h6>
+      <div className="crew-container" style={{ marginLeft: "0px" }}>
+        {/* Loop through cast array */}
+        {actors.map((actor, index) => (
+          <Card
+            key={index}
+            style={{ width: "158px", height: "280px" }}
+            className="card-kru"
+          >
+            <Card.Img
+              variant="top"
+              src={`${import.meta.env.VITE_API_URL_IMAGE}/${actor.image}`}
+              alt="{actor.name}"
+              className="img-krufilms"
+            />
+            <Card.Body className="card-body-detailtiketfilms">
+              <h5 className="fw-bold mb-1">{truncateText(actor.name, 15)}</h5>
+              <p style={{ color: "white" }}>{actor.pemeran}</p>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
     </>
   );
 };

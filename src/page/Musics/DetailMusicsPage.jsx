@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import api from "../../api/axios"
 
 const DetailMusicsPage = () => {
   const { id } = useParams();
@@ -15,23 +16,11 @@ const DetailMusicsPage = () => {
       setLoading(true);
       setError(null);
       try {
-        // Mengubah port dari 3001 ke 3000
-        const response = await fetch(`http://localhost:3000/api/music/${id}`);
+        // Menggunakan api yang sudah diimpor
+        const response = await api.get(`/music/${id}?include=all`);
 
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error("Musik tidak ditemukan");
-          }
-          const errorData = await response.json();
-          throw new Error(
-            errorData.message || `Gagal mengambil data: ${response.status}`
-          );
-        }
-
-        const responseData = await response.json(); // Ambil seluruh objek respons
-
-        if (responseData && responseData.data) {
-          setMusic(responseData.data); // Set state 'music' ke objek musik sebenarnya
+        if (response.data && response.data.data) {
+          setMusic(response.data.data); // Set state 'music' ke objek musik sebenarnya
         } else {
           throw new Error(
             "Format data API tidak sesuai atau data tidak ditemukan."
@@ -39,7 +28,7 @@ const DetailMusicsPage = () => {
         }
       } catch (err) {
         console.error("Error fetching music detail:", err);
-        setError(err.message);
+        setError(err.response?.data?.message || err.message);
       } finally {
         setLoading(false);
       }
@@ -90,7 +79,7 @@ const DetailMusicsPage = () => {
                 className="d-block w-100 rounded-4"
                 src={
                   music.carouselImage ||
-                  `http://localhost:3000/${music.image}` ||
+                  `${import.meta.env.VITE_API_URL_IMAGE}/${music.image}` ||
                   "https://placehold.co/1200x400/EBF4FA/1F2937?text=No+Image"
                 }
                 alt={music.title || "Gambar musik"}
@@ -111,7 +100,7 @@ const DetailMusicsPage = () => {
             <div className="col-md-3 mb-4 mb-md-0">
               <img
                 src={
-                  `http://localhost:3000/${music.image}` ||
+                  `${import.meta.env.VITE_API_URL_IMAGE}/${music.image}` ||
                   "https://placehold.co/300x300/EBF4FA/1F2937?text=No+Cover"
                 }
                 alt={music.title || "Cover Lagu"}
@@ -153,21 +142,21 @@ const DetailMusicsPage = () => {
               <div className="detail-artis-info d-flex align-items-center">
                 <img
                   src={
-                    music.artistImage ||
-                    "https://placehold.co/80x80/EBF4FA/1F2937?text=Artis"
+                    `${import.meta.env.VITE_API_URL_IMAGE}/${music.artist_images}` ||
+                  `${import.meta.env.VITE_API_URL_IMAGE}/uploads/system/no-pictures.png`
                   }
                   alt={music.artist || "Foto Artis"}
                   className="detail-artis-image"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src =
-                      "https://placehold.co/80x80/EBF4FA/1F2937?text=Error";
+                      `${import.meta.env.VITE_API_URL_IMAGE}/uploads/system/no-pictures.png`;
                   }}
                 />
                 <div className="detail-artis-text ms-3 d-flex flex-column justify-content-between">
                   <p className="detail-artis-label mb-1">Artis</p>
                   <h5 className="detail-artis-nama mt-auto">
-                    {music.artist || "Artis Tidak Diketahui"}
+                    {music.artists || "Artis Tidak Diketahui"}
                   </h5>
                 </div>
               </div>
@@ -238,7 +227,7 @@ const DetailMusicsPage = () => {
               <a href="#" className="detail-button2">
                 KONSER TERDEKAT
               </a>
-              <Link to={`/reviewmusics/1`} className="detail-button2">
+              <Link to={`/reviewmusics/${id}`} className="detail-button2">
                 LIHAT ULASAN
               </Link>
             </div>

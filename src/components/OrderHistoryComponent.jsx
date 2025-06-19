@@ -93,12 +93,12 @@ const OrderHistoryComponent = ({ concertOrders = [], filmOrders = [] }) => {
 
   return (
     <>
-      <Card className="p-4 shadow-sm">
+      <Card className="p-4" style={{backgroundColor:'#9599F6'}}>
         <Tabs
           id="order-history-tabs"
           activeKey={key}
           onSelect={(k) => setKey(k)}
-          className="mb-4"
+          className="shdow-no"
         >
           <Tab
             eventKey="concerts"

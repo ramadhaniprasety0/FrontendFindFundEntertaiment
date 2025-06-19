@@ -337,7 +337,7 @@ header .container .btn-explore:hover {
 /* Right: Background image & welcome message */
 .register-right {
   width: 100%;
-  background-image: url("/src/assets/img/login/bg-regis.png");
+  background-image: url("/src/img/login/bg-regis.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1237,6 +1237,24 @@ header .container .btn-explore:hover {
   scale: 1.2;
   rotate: 5deg;
   filter: blur(40px);
+}
+
+.homepage-films .btn-lihat-semua {
+  background-color: #2e388a; /* Sesuaikan warna biru sesuai gambar */
+  color: #fff; /* Teks putih */
+  border: none;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  border-radius: 999px; /* Full rounded */
+  font-weight: 500;
+  box-shadow: none;
+  transition: background-color 0.3s ease;
+}
+
+.homepage-films .btn-lihat-semua:hover {
+  background-color: #25287a;
+  color: #fff;
+  text-decoration: none;
 }
 
 .homepage-films .news-card{
@@ -2669,6 +2687,40 @@ header .container .btn-explore:hover {
   margin-top: -18px;
 }
 
+.crew-container {
+  display: flex;
+  margin-left: 114px;
+  margin-top: 20px;
+  gap: 10px;
+}
+.crew-container .card-kru {
+  box-shadow: 0px 10px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+.crew-container .img-krufilms {
+  border-radius: 5px 5px 0px 0px;
+  height: 170px;
+}
+.crew-container h5 {
+  font-size: 15px;
+  color: #1d194d;
+  font-weight: bold;
+  text-align: center;
+}
+.crew-container p {
+  font-size: 15px;
+  color: #1d194d;
+  text-align: center;
+  width: 155px;
+  margin-left: -15px;
+}
+
+.crew-container .card-body-detailtiketfilms {
+  background-color: #8e97fd;
+  border-radius: 0px 0px 5px 5px;
+  height: 80px;
+}
+
 .detail-film-page {
   background-color: #dcd6f7;
   font-family: "Segoe UI", sans-serif;
@@ -2680,6 +2732,7 @@ header .container .btn-explore:hover {
 .detail-film-page .poster-section {
   width: 200px;
   flex-shrink: 0;
+  margin-top: -70px;
 }
 
 .detail-film-page .poster-section img {
@@ -2768,6 +2821,8 @@ header .container .btn-explore:hover {
   flex-grow: 1;
   max-width: 600px;
   min-width: 0;
+  margin-top: -70px;
+  margin-left: -30px;
 }
 
 .detail-film-page .info-section h3 {
@@ -2778,8 +2833,9 @@ header .container .btn-explore:hover {
   background-color: #5562fc;
   color: #fff;
   font-size: 0.75rem;
-  padding: 0.4em 0.7em;
-  border-radius: 0.8em;
+  padding: 3px 10px;
+  border-radius: 30px;
+  font-style: italic;
 }
 
 /* Interaksi Pengguna */
@@ -2796,9 +2852,10 @@ header .container .btn-explore:hover {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-top: -70px;
 }
 
-/* Ikon atas (Ditonton & Suka) */
+
 .detail-film-page .interaction-section .icon-row {
   display: flex;
   justify-content: space-around;
@@ -2814,13 +2871,11 @@ header .container .btn-explore:hover {
   font-weight: 500;
 }
 
-/* Rating */
 .detail-film-page .interaction-section .rating {
   color: #fdcb6e;
   font-size: 1.5rem;
 }
 
-/* Label dan ikon tambahan */
 .detail-film-page .interaction-section .label {
   font-weight: 600;
   font-size: 0.95rem;
@@ -4710,14 +4765,11 @@ text-transform: uppercase;
 
 .reviewer-film-users {
   font-size: 15px;
-  gap: 30px;
   color: #3d3956;
-  margin-top: -30px;
 }
 
 .like-dislike {
   margin-top: -40px;
-  margin-left: 10px;
 }
 
 /* Menghapus garis bawah pada item terakhir */
@@ -5358,6 +5410,78 @@ text-transform: uppercase;
 .detail-konser-error a {
   color: #7367F0;
 }
+
+/* Populer Film */
+
+.film-section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+}
+
+.film-card-container {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.film-card {
+  background-color: #8E97FD;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: 280px;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+}
+
+.film-image-wrapper {
+  position: relative;
+}
+
+.film-image {
+  width: 100%;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  height: auto;
+  object-fit: cover;
+}
+
+.film-info {
+  padding: 1rem;
+}
+
+.film-genre {
+  font-size: 12px;
+  color: white;
+  border: 1px solid #444994;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.8rem;
+}
+
+.film-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+.film-description {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.film-button {
+  display: inline-block;
+  background-color: #6366f1;
+  color: white;
+  padding: 0.2rem 0.8rem;
+  border-radius: 1rem;
+  text-decoration: none;
+}
+
 
 
 @media (max-width: 991.98px) {

@@ -1,7 +1,7 @@
 import { Container, Carousel, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import Swal from "sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import DetailFilmComponent from "../../components/FilmsComponentsHome/DetailFilmsComponent";
@@ -18,12 +18,12 @@ const DetailFilmPage = () => {
   const getDetailFilm = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`http://localhost:3000/api/films/${id}`);
-      const { data: data_actors } = await axios.get(`http://localhost:3000/api/films/${id}/artists`);
+      const { data } = await api.get(`/films/${id}`);
+      const { data: data_actors } = await api.get(`/films/${id}/artists`);
       setActors(data_actors.data);
       setFilm(data.data);
       const films = data.data;
-      setImages(`http://localhost:3000/${films.image_poster}`);
+      setImages(`${import.meta.env.VITE_API_URL_IMAGE}/${films.image_poster}`);
       setTitle(films.title);
       setLoading(false);
     } catch (error) {

@@ -284,19 +284,6 @@ const Dashboard = () => {
             {!collapsed && "Pengguna"}
           </Link>
           <Link
-            to="/dashboard/settings"
-            className={`nav-link text-start text-white border-0 mb-2 ${
-              isMenuActive(location.pathname, "settings") ? "slider-active" : ""
-            }`}
-            style={{
-              transition: "all 0.3s ease-in-out",
-              width: collapsed ? "46px" : "100%",
-            }}
-          >
-            <i className="bi bi-gear me-2"></i>
-            {!collapsed && "Pengaturan"}
-          </Link>
-          <Link
             onClick={handleLogout}
             className={`nav-link text-start text-white border-0 mb-2 ${
               isMenuActive(location.pathname, "logout") ? "slider-active" : ""
@@ -320,17 +307,6 @@ const Dashboard = () => {
             <h5 className="m-0 fw-bold">FinFun Management System</h5>
           </div>
           <div className="d-flex align-items-center">
-            <div className="dropdown me-3">
-              <button
-                className="btn btn-sm btn-bell position-relative"
-                type="button"
-              >
-                <i className="bi bi-bell"></i>
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  3
-                </span>
-              </button>
-            </div>
             <div className="dropdown">
               <button className="btn d-flex align-items-center" type="button">
                 <img
@@ -400,7 +376,6 @@ const Dashboard = () => {
             />
             {/* Route User */}
             <Route path="/users" element={<UsersManagement />} />
-            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
           <ToastContainer />
         </div>
@@ -818,186 +793,6 @@ const UsersManagement = () => {
           <div className="table-responsive">
             <div id="users-find-fun-app">
               <UsersFindFunApp />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Settings Page
-const SettingsPage = () => {
-  return (
-    <div>
-      <h4 className="mb-4">Pengaturan</h4>
-
-      <div className="card border-0 shadow-sm mb-4">
-        <div className="card-header bg-white">
-          <h5 className="card-title m-0">Pengaturan Situs</h5>
-        </div>
-        <div className="card-body">
-          <div className="mb-3 row">
-            <label htmlFor="siteName" className="col-sm-3 col-form-label">
-              Nama Situs
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                className="form-control"
-                id="siteName"
-                defaultValue="Cinema Management System"
-              />
-            </div>
-          </div>
-          <div className="mb-3 row">
-            <label htmlFor="adminEmail" className="col-sm-3 col-form-label">
-              Email Admin
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="email"
-                className="form-control"
-                id="adminEmail"
-                defaultValue="admin@example.com"
-              />
-            </div>
-          </div>
-          <div className="mb-3 row">
-            <label htmlFor="logoUpload" className="col-sm-3 col-form-label">
-              Logo Situs
-            </label>
-            <div className="col-sm-9">
-              <input type="file" className="form-control" id="logoUpload" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-9 offset-sm-3">
-              <button type="button" className="btn btn-primary">
-                Simpan Perubahan
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="card border-0 shadow-sm mb-4">
-        <div className="card-header bg-white">
-          <h5 className="card-title m-0">Pengaturan Notifikasi</h5>
-        </div>
-        <div className="card-body">
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="emailNotif"
-              defaultChecked
-            />
-            <label className="form-check-label" htmlFor="emailNotif">
-              Terima notifikasi melalui email
-            </label>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="newFilmNotif"
-              defaultChecked
-            />
-            <label className="form-check-label" htmlFor="newFilmNotif">
-              Pemberitahuan film baru
-            </label>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="newUserNotif"
-              defaultChecked
-            />
-            <label className="form-check-label" htmlFor="newUserNotif">
-              Pemberitahuan pengguna baru
-            </label>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="systemNotif"
-              defaultChecked
-            />
-            <label className="form-check-label" htmlFor="systemNotif">
-              Pemberitahuan sistem
-            </label>
-          </div>
-          <button type="button" className="btn btn-primary">
-            Simpan Perubahan
-          </button>
-        </div>
-      </div>
-
-      <div className="card border-0 shadow-sm">
-        <div className="card-header bg-white">
-          <h5 className="card-title m-0">Pengaturan Keamanan</h5>
-        </div>
-        <div className="card-body">
-          <div className="mb-3 row">
-            <label
-              htmlFor="currentPassword"
-              className="col-sm-3 col-form-label"
-            >
-              Password Saat Ini
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="password"
-                className="form-control"
-                id="currentPassword"
-              />
-            </div>
-          </div>
-          <div className="mb-3 row">
-            <label htmlFor="newPassword" className="col-sm-3 col-form-label">
-              Password Baru
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="password"
-                className="form-control"
-                id="newPassword"
-              />
-            </div>
-          </div>
-          <div className="mb-3 row">
-            <label
-              htmlFor="confirmPassword"
-              className="col-sm-3 col-form-label"
-            >
-              Konfirmasi Password
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="password"
-                className="form-control"
-                id="confirmPassword"
-              />
-            </div>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="twoFactorAuth"
-            />
-            <label className="form-check-label" htmlFor="twoFactorAuth">
-              Aktifkan Otentikasi Dua Faktor
-            </label>
-          </div>
-          <div className="row">
-            <div className="col-sm-9 offset-sm-3">
-              <button type="button" className="btn btn-primary">
-                Perbarui Password
-              </button>
             </div>
           </div>
         </div>

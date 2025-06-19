@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from "../../api/axios";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
@@ -16,7 +16,7 @@ const FormBayarPage = () => {
   const getDetailFilm = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`http://localhost:3000/api/films/${id}/tiket`);
+      const { data } = await api.get(`/films/${id}/tiket`);
       setFilm(data.data);
       setLoading(false);
     } catch (error) {

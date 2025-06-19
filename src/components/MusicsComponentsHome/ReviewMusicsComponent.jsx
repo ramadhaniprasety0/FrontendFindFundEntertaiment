@@ -4,13 +4,12 @@ import { Row, Col, Spinner, Modal, Button, Form } from "react-bootstrap";
 import api from "../../api/axios";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-// import { Link } from "react-router-dom";
 
-const ReviewFilmsComponent = () => {
+const ReviewMusicsComponent = () => {
   const { id } = useParams();
   const userId = localStorage.getItem("userId");
   const [review, setReview] = useState([]);
-  const [film, setFilm] = useState([]);
+  const [music, setMusic] = useState({});
   const [loading, setLoading] = useState(true);
 
   const [ratinguser, setRatinguser] = useState(0);
@@ -23,17 +22,13 @@ const ReviewFilmsComponent = () => {
 
   const [bintangDropdownOpen, setBintangDropdownOpen] = useState(false);
   const [urutkanDropdownOpen, setUrutkanDropdownOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(false); 
-  const [rating, setRating] = useState(review.rating); 
-  const totalStars = 5;
+  const [isChecked, setIsChecked] = useState(false);
 
-  
   const [likeCount, setLikeCount] = useState(100);
   const [dislikeCount, setDislikeCount] = useState(13);
   const [likeClicked, setLikeClicked] = useState(false);
   const [dislikeClicked, setDislikeClicked] = useState(false);
 
-  
   const bintangDropdownRef = useRef(null);
   const urutkanDropdownRef = useRef(null);
 
@@ -47,15 +42,16 @@ const ReviewFilmsComponent = () => {
   const getReview = async () => {
     try {
       setLoading(true);
-      const { data: film } = await api.get(
-        `/films/${id}`
-      );
-      const { data } = await api.get(
-        `/ulasan/film/${id}`
-      );
-      setReview(data.data);
-      setFilm(film.data);
-      if (data.data.length === 0) {
+      const { data: musicData } = await api.get(`/music/${id}`);
+      const response = await api.get(`/ulasan/music/${id}`);
+
+      // Perbaikan: Pastikan data review selalu array
+      const reviewData = Array.isArray(response.data) ? response.data : [];
+
+      setReview(reviewData);
+      setMusic(musicData.data || {});
+
+      if (reviewData.length === 0) {
         setNoReview(true);
       }
     } catch (error) {
@@ -82,7 +78,8 @@ const ReviewFilmsComponent = () => {
     );
   }
 
-  if (!review) {
+  // Perbaikan: Cek apakah review adalah array
+  if (!Array.isArray(review)) {
     return (
       <div className="w-100 min-vh-100 d-flex justify-content-center align-items-center homepage-films">
         <h2>Tidak Ada Review</h2>
@@ -98,7 +95,7 @@ const ReviewFilmsComponent = () => {
     e.preventDefault();
     const ulasanData = {
       user_id: userId,
-      film_id: id,
+      music_id: id, // Menggunakan music_id alih-alih film_id
       title_review: titleReview,
       alur_review: plotReview,
       sinematografi_review: cinematographyReview,
@@ -113,10 +110,7 @@ const ReviewFilmsComponent = () => {
     console.log(ulasanData);
 
     try {
-      const response = await api.post(
-        `/ulasan`, ulasanData, {
-         
-        });
+      const response = await api.post(`/ulasan`, ulasanData);
       getReview();
       handleCloseModal();
     } catch (error) {
@@ -152,25 +146,25 @@ const ReviewFilmsComponent = () => {
 
   const handleLikeClick = () => {
     if (!likeClicked) {
-      setLikeClicked(true); 
-      setDislikeClicked(false); 
-      setLikeCount(likeCount + 1); 
-      setDislikeCount(dislikeCount - (dislikeClicked ? 1 : 0)); 
+      setLikeClicked(true);
+      setDislikeClicked(false);
+      setLikeCount(likeCount + 1);
+      setDislikeCount(dislikeCount - (dislikeClicked ? 1 : 0));
     } else {
-      setLikeClicked(false); 
-      setLikeCount(likeCount - 1); 
+      setLikeClicked(false);
+      setLikeCount(likeCount - 1);
     }
   };
 
   // Handle dislike click event
   const handleDislikeClick = () => {
     if (!dislikeClicked) {
-      setDislikeClicked(true); 
-      setLikeClicked(false); 
-      setDislikeCount(dislikeCount + 1); 
-      setLikeCount(likeCount - (likeClicked ? 1 : 0)); 
+      setDislikeClicked(true);
+      setLikeClicked(false);
+      setDislikeCount(dislikeCount + 1);
+      setLikeCount(likeCount - (likeClicked ? 1 : 0));
     } else {
-      setDislikeClicked(false); 
+      setDislikeClicked(false);
       setDislikeCount(dislikeCount - 1);
     }
   };
@@ -189,22 +183,20 @@ const ReviewFilmsComponent = () => {
   };
 
   return (
-    <div className="w-100 min-vh-100 reviewfilms">
+    <div className="w-100 min-vh-100 reviewfilms mt-5">
       <div className="poster-section-review d-flex justify-content-center">
         <img
           className="rounded-4 film-poster"
-          src={`${import.meta.env.VITE_API_URL_IMAGE}/${film.image_poster}`}
-          alt={film.title}
+          src={`${import.meta.env.VITE_API_URL_IMAGE}/${music.image}`}
+          alt={music.title}
         />
         <div className="title-review">
-          <p>{film.title}</p>
-          <h2>Ulasan Penonton</h2>
+          <p>{music.title}</p>
+          <h2>Ulasan Pendengar</h2>
         </div>
       </div>
       <div className="d-flex mb-4">
-        <h3 className="h3-review-film text-start">
-          {review.length || 0} Ulasan
-        </h3>
+        <h3 className="h3-review-film text-start">{review.length} Ulasan</h3>
 
         <div className="buttons d-flex">
           <div className="dropdown btn-review-film" ref={bintangDropdownRef}>
@@ -248,16 +240,16 @@ const ReviewFilmsComponent = () => {
             onClick={() => setIsChecked(!isChecked)}
           >
             <i
-              className={`fa${isChecked ? "s" : "r"} fa-check-circle`} // Mengubah class icon berdasarkan status
+              className={`fa${isChecked ? "s" : "r"} fa-check-circle`}
               style={{
                 fontSize: "15px",
-                color: isChecked ? "black" : "#29282F", // Mengubah warna icon saat dipilih
+                color: isChecked ? "black" : "#29282F",
                 cursor: "pointer",
               }}
             ></i>
             <span
               style={{
-                color: isChecked ? "black" : "#29282F", // Warna teks berubah sesuai status
+                color: isChecked ? "black" : "#29282F",
                 fontWeight: "bold",
                 marginLeft: "5px",
               }}
@@ -281,7 +273,7 @@ const ReviewFilmsComponent = () => {
       {noReview ? (
         <div className="w-100 min-vh-100 d-flex justify-content-center align-items-start homepage-films">
           <h3>
-            Belum ada Review nih.. Jadi reviewer pertama di film {film.title}
+            Belum ada Review nih.. Jadi reviewer pertama di musik {music.title}
           </h3>
         </div>
       ) : (
@@ -318,26 +310,13 @@ const ReviewFilmsComponent = () => {
               <div className="reviewer-film-isi">
                 <h1>"{item.title_review}"</h1>
                 <div className="alur-film">
-                  <h5>Alur</h5>
                   <p>{item.alur_review}</p>
-                </div>
-                <div className="sinematografi-film">
-                  <h5>Sinematografi</h5>
-                  <p>{item.sinematografi_review}</p>
-                </div>
-                <div className="pemeran-film">
-                  <h5>Pemeran</h5>
-                  <p>{item.pemeran_review}</p>
-                </div>
-                <div className="lainnya-film">
-                  <h5>Lainnya</h5>
-                  <p>{item.review_lain}</p>
                 </div>
 
                 {/* Info user & tanggal */}
-                <div className="reviewer-film-users mt-3 mb-3 d-flex">
+                <div className="reviewer-film-users mt-3 mb-3 d-flex gap-3">
                   <p>
-                    <strong>{item.nama}</strong>
+                    <strong>{item.username}</strong>
                   </p>
                   <p>{formatDate(item.created_at)}</p>
                 </div>
@@ -395,25 +374,25 @@ const ReviewFilmsComponent = () => {
         <Modal.Body>
           <div className="modal-film-header">
             <img
-              src={`${import.meta.env.VITE_API_URL_IMAGE}/${film.image}`}
-              alt={film.title}
+              src={`${import.meta.env.VITE_API_URL_IMAGE}/${music.image}`}
+              alt={music.title}
               className="film-poster-modal"
             />
             <div className="film-details-col">
-              <h4>{film.title}</h4>
+              <h4>{music.title}</h4>
               <p className="film-metadata">
-                {film.rating_film} &bull; {film.release_year} &bull;{" "}
-                {Math.floor(film.duration / 60)}j {film.duration % 60}m
+                {music.artists} &bull; {music.release_year || music.year} &bull;{" "}
+                {music.album}
               </p>
               <div className="genre-container">
-                {film.genre1 && (
-                  <span className="genre-tag">{film.genre1}</span>
+                {music.genre1 && (
+                  <span className="genre-tag">{music.genre1}</span>
                 )}
-                {film.genre2 && (
-                  <span className="genre-tag">{film.genre2}</span>
+                {music.genre2 && (
+                  <span className="genre-tag">{music.genre2}</span>
                 )}
-                {film.genre3 && (
-                  <span className="genre-tag">{film.genre3}</span>
+                {music.genre3 && (
+                  <span className="genre-tag">{music.genre3}</span>
                 )}
               </div>
             </div>
@@ -434,7 +413,7 @@ const ReviewFilmsComponent = () => {
                       ☆
                     </span>
                   );
-                })} 
+                })}
               </div>
             </div>
           </div>
@@ -449,71 +428,13 @@ const ReviewFilmsComponent = () => {
             />
 
             <div className="custom-form-group">
-              <label htmlFor="plotReview">Plot</label>
               <textarea
                 id="plotReview"
                 rows="3"
-                placeholder="Ulasan"
+                placeholder="Masukkan ulasan Anda"
                 value={plotReview}
                 onChange={(e) => setPlotReview(e.target.value)}
               ></textarea>
-            </div>
-
-            <div className="custom-form-group">
-              <label htmlFor="actorReview">Pemeran</label>
-              <textarea
-                id="actorReview"
-                rows="3"
-                placeholder="Ulasan"
-                value={actorReview}
-                onChange={(e) => setActorReview(e.target.value)}
-              ></textarea>
-            </div>
-
-            <div className="custom-form-group">
-              <label htmlFor="cinematographyReview">Sinematografi</label>
-              <textarea
-                id="cinematographyReview"
-                rows="3"
-                placeholder="Ulasan"
-                value={cinematographyReview}
-                onChange={(e) => setCinematographyReview(e.target.value)}
-              ></textarea>
-            </div>
-
-            <div className="custom-form-group">
-              <label htmlFor="otherReview">Lainnya</label>
-              <textarea
-                id="otherReview"
-                rows="3"
-                placeholder="Ulasan"
-                value={otherReview}
-                onChange={(e) => setOtherReview(e.target.value)}
-              ></textarea>
-            </div>
-
-            <div className="spoiler-section">
-              <p>Apakah Ulasan Pengguna ini mengandung spoiler?</p>
-
-              <div className="radio-options-container">
-                <Form.Check
-                  
-                  label="Ya"
-                  name="spoiler-group"
-                  type="radio"
-                  id="spoiler-yes"
-                  onChange={() => setSpoiler(true)}
-                />
-                <Form.Check
-                  
-                  label="Tidak"
-                  name="spoiler-group"
-                  type="radio"
-                  id="spoiler-no"
-                  defaultChecked
-                  onChange={() => setSpoiler(false)}
-                />
-              </div>
             </div>
           </Form>
         </Modal.Body>
@@ -531,4 +452,4 @@ const ReviewFilmsComponent = () => {
   );
 };
 
-export default ReviewFilmsComponent;
+export default ReviewMusicsComponent;

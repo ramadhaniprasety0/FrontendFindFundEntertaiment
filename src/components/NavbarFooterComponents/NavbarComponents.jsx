@@ -31,7 +31,7 @@ const NavbarComponents = () => {
         role: userRole,
         profilePic:
           imageUrl && imageUrl !== "null"
-            ? `http://localhost:3000/${imageUrl}`
+            ? `${import.meta.env.VITE_API_URL_IMAGE}/${imageUrl}`
             : null,
       });
     }

@@ -10,10 +10,12 @@ import PrivateRouteUser from "./components/PrivateRouteUser";
 import MainLayout from "./MainLayout";
 import HomePage from "./page/HomePage";
 import FilmHomepage from "./page/Films/FilmsPage";
+import PopularComponentFilms from "./page/Films/PopulerFilmsPage"
 import MusicsPage from "./page/Musics/MusicsPage";
 import DetailMusicsPage from "./page/Musics/DetailMusicsPage";
 import DetailFilmPage from "./page/Films/DetailFilmsPage";
 import ReviewFilmsPage from "./page/Films/ReviewFilmsPage";
+import ReviewMusicsPage from "./page/Musics/ReviewMusicsPage";
 import FormTiketFilm from "./page/Films/FormTiketFilmPage";
 import PaymentFilmPage from "./page/Films/PaymentFilmPage";
 import DetailKonserPage from "./page/Musics/DetailKonserPage";
@@ -38,6 +40,8 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/*" element={<HomePage />} />
           <Route path="/films" element={<FilmHomepage />} />
+          <Route path="/films/populer" element={<PopularComponentFilms />} />
+          
           <Route path="/music" element={<MusicsPage />} />
           <Route path="/music/popular" element={<PopulerMusicsPage />} />
           <Route path="/music/konser" element={<KonserMusicsPage />} />
@@ -51,9 +55,9 @@ function App() {
             {/* Rute untuk pembelian tiket */}
             <Route path="/films/tiket/:id/bioskop" element={<FormTiketFilm />} />
             <Route path="/payment-tiket/:id/schedule/:tiketId" element={<PaymentFilmPage />} />
-            {/* Rute untuk review film */}
+            {/* Rute untuk review film dan music */}
             <Route path="/film/review/:id" element={<ReviewFilmsPage />} />
-
+            <Route path="/reviewmusics/:id" element={<ReviewMusicsPage />} />
             {/* Route Untuk Konser */}
             <Route path="/music/konser/detail/:id" element={< DetailKonserPage />} />
             <Route path="/music/konser/detail/:id/form" element={< FormTiketKonser />} />

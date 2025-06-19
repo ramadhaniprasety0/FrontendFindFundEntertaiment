@@ -2,8 +2,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const PrivateRoute = () => {
-  const token = localStorage.getItem('token');  // Mengambil token dari localStorage
-  const userRole = localStorage.getItem('userRole'); // Mengambil role pengguna dari localStorage
+  const token = localStorage.getItem('token');  
+  const userRole = localStorage.getItem('userRole'); 
 
   if (!token) {
     return <Navigate to="/login" />;

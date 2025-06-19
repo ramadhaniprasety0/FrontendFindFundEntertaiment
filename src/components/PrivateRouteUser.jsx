@@ -3,7 +3,6 @@ import Swal from 'sweetalert2';
 
 const PrivateRouteUser = () => {
   const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('userRole');
   
   if (!token) {
     Swal.fire({
@@ -14,9 +13,6 @@ const PrivateRouteUser = () => {
     });
     return <Navigate to="/login" />;
   }
-
-  // Pengguna dengan peran apapun (admin atau user) dapat mengakses rute ini
-  // Tidak perlu pemeriksaan peran khusus karena semua pengguna yang sudah login dapat mengakses
   
   return <Outlet />;  
 };

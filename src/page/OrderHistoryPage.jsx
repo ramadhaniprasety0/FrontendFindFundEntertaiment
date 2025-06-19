@@ -58,7 +58,7 @@ const OrderHistoryPage = () => {
   }
 
   return (
-    <div className="order-history-wrapper w-100 min-vh-100">
+    <div className="order-history-wrapper w-100 min-vh-100" style={{backgroundColor: '#DCDDFF'}}>
       <Container className='p-4 mt-5'>
         <h1 className="mb-4 mt-5">
           <b>Riwayat Pesanan</b>

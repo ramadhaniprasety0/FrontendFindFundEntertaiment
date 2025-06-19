@@ -59,7 +59,7 @@ const RegisterForm = () => {
   return (
     <div className="register-form text-center px-4 w-100" style={{ maxWidth: '400px' }}>
       <form onSubmit={handleSubmit}>
-        <h2 className="text-primary fw-bold mb-4">Daftar</h2>
+        <h2 className="fw-bold mb-4" style={{color:'#8e97fd'}}>Daftar</h2>
         {error && <div className="alert alert-danger">{error}</div>}
 
         <div className="mb-3 text-start">
@@ -97,10 +97,12 @@ const RegisterForm = () => {
             required
           />
           {/* Asumsi Anda menggunakan Bootstrap Icons */}
-          <i 
-            className={`bi bi-eye${showPassword ? '-slash' : ''} position-absolute top-50 end-0 translate-middle-y me-3`}
+          <i
+            className={`bi bi-eye-slash${
+              showPassword ? "bi bi-eye" : ""
+            } position-absolute end-0 translate-middle-y me-3`}
             onClick={() => setShowPassword(!showPassword)}
-            style={{ cursor: 'pointer', zIndex: 100 }}
+            style={{ cursor: "pointer", zIndex: 100, marginTop: "-18px" }}
           ></i>
         </div>
 
@@ -115,10 +117,12 @@ const RegisterForm = () => {
             required
           />
           {/* Asumsi Anda menggunakan Bootstrap Icons */}
-          <i 
-            className={`bi bi-eye${showRepeatPassword ? '-slash' : ''} position-absolute top-50 end-0 translate-middle-y me-3`}
+          <i
+            className={`bi bi-eye-slash${
+              showRepeatPassword ? "bi bi-eye" : ""
+            } position-absolute end-0 translate-middle-y me-3`}
             onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-            style={{ cursor: 'pointer', zIndex: 100 }}
+            style={{ cursor: "pointer", zIndex: 100, marginTop: "-18px" }}
           ></i>
         </div>
 
