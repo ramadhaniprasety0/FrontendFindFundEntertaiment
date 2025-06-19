@@ -1789,6 +1789,18 @@ header .container .btn-explore:hover {
   font-weight: bold;
 }
 
+.homepage-profile-artist .box-populer-musics {
+  border-radius: 17px;
+  background: #808ad5;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.homepage-profile-artist .box-populer-musics h1 {
+  font-size: 40px;
+  color: #251551;
+  font-weight: bold;
+}
+
 .music-popular-wrapper {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;

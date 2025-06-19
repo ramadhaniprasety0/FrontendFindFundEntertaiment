@@ -224,9 +224,9 @@ const DetailMusicsPage = () => {
                   <i className="bi bi-play-circle-fill me-1"></i> MV
                 </a>
               </div>
-              <a href="#" className="detail-button2">
-                KONSER TERDEKAT
-              </a>
+              <Link to={`/artist/profile/${id}`} className="detail-button2">
+              KONSER TERDEKAT
+              </Link>
               <Link to={`/reviewmusics/${id}`} className="detail-button2">
                 LIHAT ULASAN
               </Link>

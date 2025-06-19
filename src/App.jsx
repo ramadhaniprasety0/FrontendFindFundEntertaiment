@@ -12,6 +12,7 @@ import HomePage from "./page/HomePage";
 import FilmHomepage from "./page/Films/FilmsPage";
 import PopularComponentFilms from "./page/Films/PopulerFilmsPage"
 import MusicsPage from "./page/Musics/MusicsPage";
+import ArtisProfilePage from "./page/Musics/ArtistProfilePage"
 import DetailMusicsPage from "./page/Musics/DetailMusicsPage";
 import DetailFilmPage from "./page/Films/DetailFilmsPage";
 import ReviewFilmsPage from "./page/Films/ReviewFilmsPage";
@@ -46,6 +47,7 @@ function App() {
           <Route path="/music/popular" element={<PopulerMusicsPage />} />
           <Route path="/music/konser" element={<KonserMusicsPage />} />
           <Route path="/music/:id" element={<DetailMusicsPage />} />
+          <Route path="/artist/profile/:id" element={<ArtisProfilePage />} />
           <Route path="/films/detail/:id" element={<DetailFilmPage />} />
         </Route>
 
