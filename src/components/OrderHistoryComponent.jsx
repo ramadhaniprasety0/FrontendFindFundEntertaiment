@@ -195,7 +195,7 @@ const OrderHistoryComponent = ({ concertOrders = [], filmOrders = [] }) => {
                         className="d-flex align-items-center justify-content-end"
                       >
                         <Button
-                          variant="primary"
+                          variant="outline-primary"
                           onClick={() => handleShowFilmTicket(order)}
                           disabled={order.status?.toUpperCase() !== "ACCEPT"}
                         >
